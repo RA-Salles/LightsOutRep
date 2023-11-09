@@ -10,7 +10,7 @@ what it should do
     create problem based on args OR a file. preferably a file
     call solver and wait for a solution
     parse solution
-    FUCKING DIE IN A FIRE!
+    !FUCKING DIE IN A  F I R E ! :>>>
 """
 
 import sys
@@ -22,6 +22,31 @@ K_DOWNWARD_PATH = "downwardpath"
 K_PREFIXFORPOSIT = ""
 # this guy checks for them fucking errors. If it finds a runtime error caused by the user, IT FUCKING QUITS. Deal with it.
 K_ERRORFLAG = 0
+
+"""
+def initializeglobalvars():
+    
+        #I HAD TO WRITE THIS BECAUSE THE FUCKING LANGUAGE HAS NEVER AND I MEAN N E V E R SEEN A FUCKING GLOBAL VARIABLE
+        #IN ITS ENTIRE 30 PLUS YEARS LIFE CYCLE FUCKING PIECE OF CRAP FUKC YOU FUCKING NORWEGIANS BITCH ASS MFS!!!!!!
+
+    try:
+        global K_DOMAIN_PATH
+        K_DOMAIN_PATH = "domainpath"
+        global K_MAD_PATH
+        K_MAD_PATH = "madpath"
+        global K_DOWNWARD_PATH
+        K_DOWNWARD_PATH = "downwardpath"
+        global K_PREFIXFORPOSIT
+        K_PREFIXFORPOSIT = ""
+        # this guy checks for them fucking errors. If it finds a runtime error caused by the user, IT FUCKING QUITS. Deal with it.
+        global K_ERRORFLAG
+        K_ERRORFLAG = 0
+        print("global vars initialized successfully")
+    except:
+        print("global vars not initialized. start praying.")
+
+        GUESS WHAT? IT DOESN'T FUCKING WORK :>
+"""
 
 
 def parseargs():
@@ -49,27 +74,36 @@ def callsolver():  # this guy SHOULD call the solver with the problem generated.
 
 
 def problemcreator():
+    K_ERRORFLAG = 0
+    inputs = []
+    adjac = []
+    types = []
+    objects = ["", ""]
     # 0. get args phase
+
     arguments = parseargs()
     # 0.1. Check for major fuckups.
+    # then the user should wanna go ahead an input the layout for himself. Very fun!
     if arguments.layout == 'NONE' and arguments.layoutfile == 'NONE':
-        print("No layout or layout file! Averting erratic behaviour!")
-        # well, we can't generate an output file if there's no input...
-        K_ERRORFLAG = 1
-        quit()  # meaning a major fuckup.
+        inp: str
+        while (True):
+            inp = input()
+            if inp == -1 or inp == "-1":
+                break
+            inputs.append(inp)
+        # if all goes well, this should not make me wanna puke blood.
+        matrixsize = len(inputs[0])
+
     # OR
     # 0.2. CHECK FOR DOUBLE INPUT!
     # PRETTY PLEASE, let at least one of these be a NONE.
     if arguments.layout != 'NONE' and arguments.layoutfile != 'NONE':
         print("Double input! Averting erratic behaviour!")
         K_ERRORFLAG = 1  # Cant fucking handle you can't decide to give an input file or an input arg. DONT FUCKING USE BOTH!
-        quit()          # meaning a major fuckup :)
+        quit()           # meaning a major fuckup :)
 
-    else:  # if there's no fuckup, move on
+    if K_ERRORFLAG == 0:  # if there's no fuckup, move on
         # 1. input phase!
-        inputs = []
-        adjac = []
-        types = []
         if arguments.layoutfile != 'NONE':
             with open(arguments.layoutfile, "rb") as file:
                 for line in file:
@@ -101,60 +135,89 @@ def problemcreator():
                 # NOW WE CHECK THIS STUFF!
                 # these checks means we only register if it does !NOT! goes beyond borders
                 if not up[0] < 0:  # meaning it doesn't go into negatives!
-                    adjac.append("( point([" + str(actual[0]) + str(
-                        actual[1]) + "]) is adjacent to point(~[]" + str(up[0]) + "," + str(up[1]) + "]))")
+                    adjac.append("(adj x" + str(actual[0]) + " x" + str(
+                        up[0]) + " y" + str(actual[1]) + " y" + str(up[1]) + " )")
                 if not down[0] > matrixsize:  # meaning it doesn't go beyond borders!
-                    adjac.append("( point(" + str(actual[0]) + str(
-                        actual[1]) + ") is adjacent to point(" + str(down[0]) + str(down[1]) + "))")
+                    adjac.append("(adj x" + str(actual[0]) + " x" + str(
+                        down[0]) + " y" + str(actual[1]) + " y" + str(down[1]) + " )")
                 if not left[1] < 0:  # Same as up
-                    adjac.append("( point(" + str(actual[0]) + str(
-                        actual[1]) + ") is adjacent to point(" + str(left[0]) + str(left[1]) + "))")
+                    adjac.append("(adj x" + str(actual[0]) + " x" + str(
+                        left[0]) + " y" + str(actual[1]) + " y" + str(left[1]) + " )")
                 if not right[1] > matrixsize:  # Same as down
-                    adjac.append("( point(" + str(actual[0]) + str(
-                        actual[1]) + ") is adjacent to point(" + str(right[0]) + str(right[1]) + "))")
+                    adjac.append("(adj x" + str(actual[0]) + " x" + str(
+                        right[0]) + " y" + str(actual[1]) + " y" + str(right[1]) + " )")
                 # TODO! Get domain and code actual language so it works!!!!!!!!!!
 
         # GETTING TYPES!
-        i = 0
-        j = 0
+        i = -1
+        j = -1
         for line in inputs:
             i += 1  # this takes care of telling us where the fuck we are!
             for char in line:
                 j += 1  # this too!!!
-                if char == 'D':
-                    types.append(
-                        "((point[" + str(i) + "," + str(j) + "])is off)")
+                if char == 'D':  # this does nothing. VERY FUN!
+                    # types.append("((point[" + str(i) + "," + str(j) + "])is off)")
+                    pass
                 if char == 'd':
+                    # types.append("((point[" + str(i) + "," + str(j) + "])is off)")
                     types.append(
-                        "((point[" + str(i) + "," + str(j) + "])is off)")
-                    types.append(
-                        "((point[" + str(i) + "," + str(j) + "])is broken)")
+                        "( is-broken x" + str(i) + " y" + str(j) + " )")
                 if char == 'L':
-                    types.append(
-                        "((point[" + str(i) + "," + str(j) + "])is on)")
+                    types.append("( is-lit x" + str(i) + " y" + str(j) + " )")
                 if char == 'l':
+                    types.append("( is-lit x" + str(i) + " y" + str(j) + " )")
                     types.append(
-                        "((point[" + str(i) + "," + str(j) + "])is on)")
-                    types.append(
-                        "((point[" + str(i) + "," + str(j) + "])is broken)")
-        # checking checking checking! see if it works! if it does REMEMBER TO COMMENT IT FOR THE USER'S SAKE!
-        print(input)
+                        "( is-broken x" + str(i) + " y" + str(j) + " )")
+
+        # CREATING OBJECTS BASED ON MATRIX SIZE
+        for i in range(matrixsize):
+            objects[0] += " x" + str(i)
+            objects[1] += " y" + str(i)
+            pass
+        objects[0] += "- PosX"
+        objects[1] += "- PosY"
+
+        # checking checking checking! see if it works! if it does REMEMBER TO COMMENT IT FOR THE USER'S SAKE! and performance :>>>
+        print(inputs)
         print(adjac)
         print(types)
+        print(objects)
 
-        # THIS IS THE LAZIEST FUCKING PIECE OF TRASH I COULD THINK OF!
+        # THIS IS THE LAZIEST FUCKING PIECE OF TRASH I COULD THINK OF! but. It should. SHOULD. work. :>
         # start is the head of the file and starts the stuff.
-        start = """
-        Insert here a head for the problem. PLEASE
-        """  # TODO! Get an actual model here!
+        head1 = """
+        (define (problem p01) (:domain lights-out)
+        (:objects
+        """
+        # x0 x1 x2 - PosX
+        # y0 y1 y2 - PosY
+        head2 = """   
+        )
+
+        (:init
+        """
         # this is the end.
         tail = """
-        Insert here a tail. It should simply have a goal and the remainder ")" stuff...
+        )
+            (:goal (and
+                ( success )
+                
+                ; ( forall ( ?x - PosX )
+                ;     ( forall ( ?y - PosY )
+                ;         ( not ( is-lit ?x ?y ) )
+                ;     )
+                ; )
+            )))
         """
+        for obj in objects:
+            head1 += "\n" + obj
         for adj in adjac:
-            start.append(adj)
+            head2 += "\n" + adj
         for ty in types:
-            start.append(ty)
+            head2 += "\n" + ty
+        full = head1 + head2 + tail
+        print(full)
+        # NOW WRITE SOMETHING TO WRITE THIS DOWN TO A FILE LAZY PIECE OF SHIT.
 
 
 if __name__ == "__main__":
@@ -166,5 +229,12 @@ if __name__ == "__main__":
     finish!
     activate each function accordingly to test and debug!
     """
+    problemcreator()
 
-    pass
+
+"""
+tail commentary!
+    in brazilian portuguese, stomachache is called diarreia. 
+    To comment someone is shitting blood, you'd say goreia (gore + diarreia).
+    the more you know!
+"""
