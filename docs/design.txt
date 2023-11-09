@@ -1,0 +1,23 @@
+
+problemcreator.py
+    gets args to create the problem. Save the file somewhere.
+    
+solver.py
+    gets a problem and a domain. Passes it to the solver (fast downward, madagascar, etc.) and generates an output file
+
+solutionparser.py
+    gets a solver output and parses it so it is pretty as required
+
+main.py
+    incapsulates everything, gives calls, scripts everything in a package. Ultrafun!
+
+what we need:
+    THE DOMAIN IS MISSING! Ain't my job, but i gotta see with the man so i can get it.
+        gotta decide to either hardcode it or not. we'll see. 
+    
+    ALL THE FILES ARE MISSING
+        gotta sit on my ass and code it. Very Fun!
+    
+    VIOLENCE!
+        There's a violent rat somewhere in my house. I will blow him with dynamite. 
+        wish me luck. I will need it. :>
