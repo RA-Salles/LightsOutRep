@@ -259,30 +259,17 @@ def problemcreator():
         # ADJUSTING FOR ADJACENTS AND STUFF...
         for i in range(matrixsize):
             for j in range(matrixsize):  # loops through all possible matrix positions
-                actual = [i, j]  # this is the actual position.
-                up = actual
-                up[0] -= 1  # meaning it gets line up.
-                left = actual
-                left[1] -= 1  # gets one column less
-                down = actual
-                down[0] += 1  # and so on!
-                right = actual
-                right[1] += 1  # ...
-                # NOW WE CHECK THIS STUFF!
-                # these checks means we only register if it does !NOT! goes beyond borders
-                if not up[0] < 0:  # meaning it doesn't go into negatives!
-                    adjac.append("(adj x" + str(actual[0]) + " x" + str(
-                        up[0]) + " y" + str(actual[1]) + " y" + str(up[1]) + " )")
-                if not down[0] > matrixsize:  # meaning it doesn't go beyond borders!
-                    adjac.append("(adj x" + str(actual[0]) + " x" + str(
-                        down[0]) + " y" + str(actual[1]) + " y" + str(down[1]) + " )")
-                if not left[1] < 0:  # Same as up
-                    adjac.append("(adj x" + str(actual[0]) + " x" + str(
-                        left[0]) + " y" + str(actual[1]) + " y" + str(left[1]) + " )")
-                if not right[1] > matrixsize:  # Same as down
-                    adjac.append("(adj x" + str(actual[0]) + " x" + str(
-                        right[0]) + " y" + str(actual[1]) + " y" + str(right[1]) + " )")
-                # TODO! Get domain and code actual language so it works!!!!!!!!!!
+                if i > 0:
+                    adjac.append(f"(adj x{i} x{i - 1} y{j} y{j})")
+
+                if i < matrixsize - 1:
+                    adjac.append(f"(adj x{i} x{i + 1} y{j} y{j})")
+
+                if j > 0:
+                    adjac.append(f"(adj x{i} x{i} y{j} y{j - 1})")
+
+                if j < matrixsize - 1:
+                    adjac.append(f"(adj x{i} x{i} y{j} y{j + 1})")
 
         # GETTING TYPES!
         i = -1
