@@ -272,26 +272,26 @@ def problemcreator():
                     adjac.append(f"(adj x{i} x{i} y{j} y{j + 1})")
 
         # GETTING TYPES!
+        # print(inputs)
+        # print(matrixsize)
         i = -1
         j = -1
         for line in inputs:
-            i += 1  # this takes care of telling us where the fuck we are!
+            j += 1  # this takes care of telling us where the fuck we are!
+            # print(f"Line ({i}): {line}")  # debug line
             for char in line:
-                j += 1  # this too!!!
+                i += 1  # this too!!!
+                # print(f"Char ({i}, {j}): {char}")  # this also
                 if char == 'D':  # this does nothing. VERY FUN!
-                    # types.append("((point[" + str(i) + "," + str(j) + "])is off)")
                     pass
                 if char == 'd':
-                    # types.append("((point[" + str(i) + "," + str(j) + "])is off)")
-                    types.append(
-                        "( is-broken x" + str(i) + " y" + str(j) + " )")
+                    types.append(f"(is-broken x{i} y{j})")
                 if char == 'L':
-                    types.append("( is-lit x" + str(i) + " y" + str(j) + " )")
+                    types.append(f"(is-lit x{i} y{j})")
                 if char == 'l':
-                    types.append("( is-lit x" + str(i) + " y" + str(j) + " )")
-                    types.append(
-                        "( is-broken x" + str(i) + " y" + str(j) + " )")
-            j = -1
+                    types.append(f"(is-lit x{i} y{j})")
+                    types.append(f"(is-broken x{i} y{j})")
+            i = -1
 
         # CREATING OBJECTS BASED ON MATRIX SIZE
         for i in range(matrixsize):
@@ -340,7 +340,7 @@ def problemcreator():
         for ty in types:
             head2 += "\n" + ty
         full = head1 + head2 + tail
-        print(full)
+        # print(full)
         # NOW WRITE SOMETHING TO WRITE THIS DOWN TO A FILE LAZY PIECE OF SHIT.
         with open("problem.pddl", "w") as f:  # as simple as that. ultrafun!
             f.write(full)
