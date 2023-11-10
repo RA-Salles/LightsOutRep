@@ -291,14 +291,15 @@ def problemcreator():
                     types.append("( is-lit x" + str(i) + " y" + str(j) + " )")
                     types.append(
                         "( is-broken x" + str(i) + " y" + str(j) + " )")
+            j = -1
 
         # CREATING OBJECTS BASED ON MATRIX SIZE
         for i in range(matrixsize):
             objects[0] += " x" + str(i)
             objects[1] += " y" + str(i)
             pass
-        objects[0] += "- PosX"
-        objects[1] += "- PosY"
+        objects[0] += " - PosX"
+        objects[1] += " - PosY"
 
         # checking checking checking! see if it works! if it does REMEMBER TO COMMENT IT FOR THE USER'S SAKE! and performance :>>>
         # print(inputs)
