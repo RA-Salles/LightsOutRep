@@ -1,0 +1,6 @@
+STEP 0: press-lit(x1,y1)
+STEP 1: done()
+STEP 0: press-lit(x1,y1)
+STEP 1: done()
+STEP 0: press-lit(x1,y1)
+STEP 1: done()

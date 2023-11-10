@@ -16,10 +16,6 @@ what it should do
 import sys
 import argparse
 import numpy as np
-K_DOMAIN_PATH = "domainpath"
-K_MAD_PATH = "madpath"
-K_DOWNWARD_PATH = "downwardpath"
-K_PREFIXFORPOSIT = ""
 # this guy checks for them fucking errors. If it finds a runtime error caused by the user, IT FUCKING QUITS. Deal with it.
 K_ERRORFLAG = 0
 
@@ -64,6 +60,7 @@ def parseargs():
 def putdomain():  # this function writes the domain to the root of execution. Then it kills all of your lineage. Very fun!!!!
     domain = """
     (define (domain lights-out)
+
     (:requirements :strips :fluents :typing :conditional-effects :negative-preconditions :equality :disjunctive-preconditions)
 
     (:types 
@@ -140,7 +137,7 @@ def putdomain():  # this function writes the domain to the root of execution. Th
         :parameters ( ?x - PosX ?y - PosY )
         :precondition (and
             ( is-lit ?x ?y )
-            ( not ( is-broken ?x ?y ) )
+            ( is-broken ?x ?y )
         )
         :effect (and 
             ;; Loops for each X and Y coordinates.
@@ -161,7 +158,7 @@ def putdomain():  # this function writes the domain to the root of execution. Th
         :parameters ( ?x - PosX ?y - PosY )
         :precondition (and
             ( not ( is-lit ?x ?y ) )
-            ( not ( is-broken ?x ?y ) )
+            ( is-broken ?x ?y )
         )
         :effect (and 
             ;; Loops for each X and Y coordinates.
@@ -191,14 +188,24 @@ def putdomain():  # this function writes the domain to the root of execution. Th
         :effect (and 
             ( success )
         )
-    ))
+    )
+
+    )
     """
+    with open("domain.pddl", "w") as f:  # as simple as that. ultrafun!
+        f.write(domain)
+        f.close()
 
 
 def callsolver():  # this guy SHOULD call the solver with the problem generated.
-    arguments = parseargs()
-    problemfile = arguments.outputname  # this should work.
-    pass
+    import subprocess
+    # added solverpath :>
+    solverpath = "/tmp/dir/software/planners/madagascar/Mp"
+    try:
+        solverhandler = subprocess.run(
+            [solverpath, "domain.pddl", "problem.pddl", "-o output.txt"])
+    except:
+        print("solver not found")
 
 
 def problemcreator():
@@ -307,10 +314,10 @@ def problemcreator():
         objects[1] += "- PosY"
 
         # checking checking checking! see if it works! if it does REMEMBER TO COMMENT IT FOR THE USER'S SAKE! and performance :>>>
-        print(inputs)
-        print(adjac)
-        print(types)
-        print(objects)
+        # print(inputs)
+        # print(adjac)
+        # print(types)
+        # print(objects)
 
         # THIS IS THE LAZIEST FUCKING PIECE OF TRASH I COULD THINK OF! but. It should. SHOULD. work. :>
         # start is the head of the file and starts the stuff.
@@ -347,6 +354,35 @@ def problemcreator():
         full = head1 + head2 + tail
         print(full)
         # NOW WRITE SOMETHING TO WRITE THIS DOWN TO A FILE LAZY PIECE OF SHIT.
+        with open("problem.pddl", "w") as f:  # as simple as that. ultrafun!
+            f.write(full)
+            f.close()
+
+
+def parsesolution():
+    crudesolution = []
+    formatted = []
+    # try:
+    with open("output.txt", "rb") as f:
+        for line in f:
+            line = str(line)
+            if line.find("done") == -1:
+                while line.find(",") != -1:
+                    xposit = line.find('x')
+                    cposit = line.find(",")
+                    end = line.find(")")
+                    firstnum = line[xposit+1:cposit]
+                    secondnum = line[cposit+2:end]
+                    formatted.append(
+                        str("(" + str(firstnum) + ", " + str(secondnum) + ")"))
+                    line = line.replace("x", "", 1)
+                    line = line.replace(",", "", 1)
+                    line = line.replace(")", "", 1)
+    # except:
+        # print("output.txt not found. Verify if solver is running or smth")
+    full = ";"
+    full = full.join(formatted)
+    print(full)
 
 
 if __name__ == "__main__":
@@ -358,7 +394,10 @@ if __name__ == "__main__":
     finish!
     activate each function accordingly to test and debug!
     """
+    # putdomain()
     problemcreator()
+    # callsolver()
+    # parsesolution()
 
 
 """
@@ -366,4 +405,27 @@ tail commentary!
     in brazilian portuguese, stomachache is called diarreia. 
     To comment someone is shitting blood, you'd say goreia (gore + diarreia).
     the more you know!
+
+
+
+
+some dumb shit:
+
+lines = ["STEP 0: press-lit(x1,y1)", "STEP 0: press-lit(x1,y1)", "done"]
+for line in lines:
+                if "done" not in line:
+                    while line.find(",") != -1:
+                        xposit = line.find('x')
+                        cposit = line.find(",")
+                        end = line.find(")")
+                        firstnum = line[xposit+1:cposit]
+                        secondnum = line[cposit+2:end]
+                        formatted.append(
+                            str("(" + str(firstnum) + ", " + str(secondnum) + ")"))
+                        line = line.replace("x", "", 1)
+                        line = line.replace(",", "", 1)
+                        line = line.replace(")", "", 1)
+full = ";"
+full = full.join(formatted)
+print(full)
 """
