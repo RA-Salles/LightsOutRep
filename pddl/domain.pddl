@@ -76,7 +76,7 @@
     :parameters ( ?x - PosX ?y - PosY )
     :precondition (and
         ( is-lit ?x ?y )
-        ( not ( is-broken ?x ?y ) )
+        ( is-broken ?x ?y )
     )
     :effect (and 
         ;; Loops for each X and Y coordinates.
@@ -97,7 +97,7 @@
     :parameters ( ?x - PosX ?y - PosY )
     :precondition (and
         ( not ( is-lit ?x ?y ) )
-        ( not ( is-broken ?x ?y ) )
+        ( is-broken ?x ?y )
     )
     :effect (and 
         ;; Loops for each X and Y coordinates.
