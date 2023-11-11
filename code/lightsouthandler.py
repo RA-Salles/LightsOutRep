@@ -1,5 +1,5 @@
 """
-written by badcodelocust
+    written by badcodelocust, aprxl
 
 what is this
     this is a problem generator to be used with main to solve lights out's problems and stuff
@@ -16,12 +16,13 @@ what it should do
 import sys
 import argparse
 import numpy as np
+import os
 # this guy checks for them fucking errors. If it finds a runtime error caused by the user, IT FUCKING QUITS. Deal with it.
 K_ERRORFLAG = 0
 
 """
 def initializeglobalvars():
-    
+
         #I HAD TO WRITE THIS BECAUSE THE FUCKING LANGUAGE HAS NEVER AND I MEAN N E V E R SEEN A FUCKING GLOBAL VARIABLE
         #IN ITS ENTIRE 30 PLUS YEARS LIFE CYCLE FUCKING PIECE OF CRAP FUKC YOU FUCKING NORWEGIANS BITCH ASS MFS!!!!!!
 
@@ -63,7 +64,7 @@ def putdomain():  # this function writes the domain to the root of execution. Th
 
     (:requirements :strips :fluents :typing :conditional-effects :negative-preconditions :equality :disjunctive-preconditions)
 
-    (:types 
+    (:types
         ;; Corresponds to the X and Y coordenates on the game's map.
         PosX
         PosY
@@ -92,7 +93,7 @@ def putdomain():  # this function writes the domain to the root of execution. Th
             ( is-lit ?x ?y )
             ( not ( is-broken ?x ?y ) )
         )
-        :effect (and 
+        :effect (and
             ;; Dims the original tile.
             ( not ( is-lit ?x ?y ) )
 
@@ -101,7 +102,7 @@ def putdomain():  # this function writes the domain to the root of execution. Th
                 (forall (?yIt - PosY)
                     ;; Checks if this tile is adjacent to the original tile.
                     (when ( and
-                        ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) ) 
+                        ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) )
                         ( is-lit ?xIt ?yIt )
                     )
                         ( not ( is-lit ?xIt ?yIt ) )
@@ -113,7 +114,7 @@ def putdomain():  # this function writes the domain to the root of execution. Th
                 (forall (?yIt - PosY)
                     ;; Checks if this tile is adjacent to the original tile.
                     (when ( and
-                        ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) ) 
+                        ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) )
                         ( not (is-lit ?xIt ?yIt ) )
                     )
                         ( is-lit ?xIt ?yIt )
@@ -129,7 +130,7 @@ def putdomain():  # this function writes the domain to the root of execution. Th
             ( not ( is-lit ?x ?y ) )
             ( not ( is-broken ?x ?y ) )
         )
-        :effect (and 
+        :effect (and
             ;; Lights up the original tile.
             ( is-lit ?x ?y )
 
@@ -138,7 +139,7 @@ def putdomain():  # this function writes the domain to the root of execution. Th
                 (forall (?yIt - PosY)
                     ;; Checks if this tile is adjacent to the original tile.
                     (when ( and
-                        ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) ) 
+                        ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) )
                         ( is-lit ?xIt ?yIt )
                     )
                         ( not ( is-lit ?xIt ?yIt ) )
@@ -150,7 +151,7 @@ def putdomain():  # this function writes the domain to the root of execution. Th
                 (forall (?yIt - PosY)
                     ;; Checks if this tile is adjacent to the original tile.
                     (when ( and
-                        ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) ) 
+                        ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) )
                         ( not (is-lit ?xIt ?yIt ) )
                     )
                         ( is-lit ?xIt ?yIt )
@@ -167,13 +168,13 @@ def putdomain():  # this function writes the domain to the root of execution. Th
             ( is-lit ?x ?y )
             ( is-broken ?x ?y )
         )
-        :effect (and 
+        :effect (and
             ;; Loops for each X and Y coordinates.
             (forall (?xIt - PosX)
                 (forall (?yIt - PosY)
                     ;; Checks if this tile is adjacent to the original tile.
                     (when ( and
-                        ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) ) 
+                        ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) )
                         ( is-lit ?xIt ?yIt )
                     )
                         ( not ( is-lit ?xIt ?yIt ) )
@@ -185,7 +186,7 @@ def putdomain():  # this function writes the domain to the root of execution. Th
                 (forall (?yIt - PosY)
                     ;; Checks if this tile is adjacent to the original tile.
                     (when ( and
-                        ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) ) 
+                        ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) )
                         ( not (is-lit ?xIt ?yIt ) )
                     )
                         ( is-lit ?xIt ?yIt )
@@ -202,13 +203,13 @@ def putdomain():  # this function writes the domain to the root of execution. Th
             ( not ( is-lit ?x ?y ) )
             ( is-broken ?x ?y )
         )
-        :effect (and 
+        :effect (and
             ;; Loops for each X and Y coordinates.
             (forall (?xIt - PosX)
                 (forall (?yIt - PosY)
                     ;; Checks if this tile is adjacent to the original tile.
                     (when ( and
-                        ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) ) 
+                        ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) )
                         ( is-lit ?xIt ?yIt )
                     )
                         ( not ( is-lit ?xIt ?yIt ) )
@@ -220,7 +221,7 @@ def putdomain():  # this function writes the domain to the root of execution. Th
                 (forall (?yIt - PosY)
                     ;; Checks if this tile is adjacent to the original tile.
                     (when ( and
-                        ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) ) 
+                        ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) )
                         ( not (is-lit ?xIt ?yIt ) )
                     )
                         ( is-lit ?xIt ?yIt )
@@ -234,14 +235,14 @@ def putdomain():  # this function writes the domain to the root of execution. Th
     ;; This is our goal for every problem.
     (:action done
         :parameters ( )
-        :precondition (and 
-            (forall ( ?x - PosX ) 
+        :precondition (and
+            (forall ( ?x - PosX )
                 (forall ( ?y - PosY )
                     ( not ( is-lit ?x ?y ) )
                 )
             )
         )
-        :effect (and 
+        :effect (and
             ( success )
         )
     )
@@ -256,10 +257,12 @@ def putdomain():  # this function writes the domain to the root of execution. Th
 def callsolver():  # this guy SHOULD call the solver with the problem generated.
     import subprocess
     # added solverpath :>
-    solverpath = "/tmp/dir/software/planners/madagascar/Mp"
+    solverpath = "/home/software/planners/madagascar/Mp"
     try:
+        home_dir = os.path.expanduser("~")
         solverhandler = subprocess.run(
-            [solverpath, "domain.pddl", "problem.pddl", "-o ./output.txt"])
+            [solverpath, "domain.pddl", "problem.pddl", "-o", format(f"{home_dir}/output.txt")])
+
     except:
         print("solver not found")
 
@@ -371,7 +374,7 @@ def problemcreator():
         """
         # x0 x1 x2 - PosX
         # y0 y1 y2 - PosY
-        head2 = """   
+        head2 = """
         )
 
         (:init
@@ -381,7 +384,7 @@ def problemcreator():
         )
             (:goal (and
                 ( success )
-                
+
                 ; ( forall ( ?x - PosX )
                 ;     ( forall ( ?y - PosY )
                 ;         ( not ( is-lit ?x ?y ) )
@@ -446,7 +449,7 @@ if __name__ == "__main__":
 
 """
 tail commentary!
-    in brazilian portuguese, stomachache is called diarreia. 
+    in brazilian portuguese, stomachache is called diarreia.
     To comment someone is shitting blood, you'd say goreia (gore + diarreia).
     the more you know!
 
