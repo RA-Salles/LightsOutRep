@@ -259,7 +259,7 @@ def callsolver():  # this guy SHOULD call the solver with the problem generated.
     solverpath = "/tmp/dir/software/planners/madagascar/Mp"
     try:
         solverhandler = subprocess.run(
-            [solverpath, "domain.pddl", "problem.pddl", "-o output.txt"])
+            [solverpath, "domain.pddl", "problem.pddl", "-o ./output.txt"])
     except:
         print("solver not found")
 
@@ -438,10 +438,10 @@ if __name__ == "__main__":
     finish!
     activate each function accordingly to test and debug!
     """
-    # putdomain()
+    putdomain()
     problemcreator()
-    # callsolver()
-    # parsesolution()
+    callsolver()
+    parsesolution()
 
 
 """
