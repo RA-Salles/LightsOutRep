@@ -257,7 +257,7 @@ def putdomain():  # this function writes the domain to the root of execution. Th
 def callsolver():  # this guy SHOULD call the solver with the problem generated.
     import subprocess
     # added solverpath :>
-    solverpath = "/home/software/planners/madagascar/Mp"
+    solverpath = "/tmp/dir/software/planners/madagascar/Mp"
     try:
         home_dir = os.path.expanduser("~")
         solverhandler = subprocess.run(
