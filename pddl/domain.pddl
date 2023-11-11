@@ -39,9 +39,23 @@
         (forall (?xIt - PosX)
             (forall (?yIt - PosY)
                 ;; Checks if this tile is adjacent to the original tile.
-                (when ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) )
-                    ;; Switches the tile off.
+                (when ( and
+                    ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) ) 
+                    ( is-lit ?xIt ?yIt )
+                )
                     ( not ( is-lit ?xIt ?yIt ) )
+                )
+            )
+        )
+
+        (forall (?xIt - PosX)
+            (forall (?yIt - PosY)
+                ;; Checks if this tile is adjacent to the original tile.
+                (when ( and
+                    ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) ) 
+                    ( not (is-lit ?xIt ?yIt ) )
+                )
+                    ( is-lit ?xIt ?yIt )
                 )
             )
         )
@@ -62,8 +76,22 @@
         (forall (?xIt - PosX)
             (forall (?yIt - PosY)
                 ;; Checks if this tile is adjacent to the original tile.
-                (when ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) )
-                    ;; Switches the tile on.
+                (when ( and
+                    ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) ) 
+                    ( is-lit ?xIt ?yIt )
+                )
+                    ( not ( is-lit ?xIt ?yIt ) )
+                )
+            )
+        )
+
+        (forall (?xIt - PosX)
+            (forall (?yIt - PosY)
+                ;; Checks if this tile is adjacent to the original tile.
+                (when ( and
+                    ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) ) 
+                    ( not (is-lit ?xIt ?yIt ) )
+                )
                     ( is-lit ?xIt ?yIt )
                 )
             )
@@ -83,9 +111,23 @@
         (forall (?xIt - PosX)
             (forall (?yIt - PosY)
                 ;; Checks if this tile is adjacent to the original tile.
-                (when ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) )
-                    ;; Switches the tile off.
+                (when ( and
+                    ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) ) 
+                    ( is-lit ?xIt ?yIt )
+                )
                     ( not ( is-lit ?xIt ?yIt ) )
+                )
+            )
+        )
+
+        (forall (?xIt - PosX)
+            (forall (?yIt - PosY)
+                ;; Checks if this tile is adjacent to the original tile.
+                (when ( and
+                    ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) ) 
+                    ( not (is-lit ?xIt ?yIt ) )
+                )
+                    ( is-lit ?xIt ?yIt )
                 )
             )
         )
@@ -104,8 +146,22 @@
         (forall (?xIt - PosX)
             (forall (?yIt - PosY)
                 ;; Checks if this tile is adjacent to the original tile.
-                (when ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) )
-                    ;; Switches the tile on.
+                (when ( and
+                    ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) ) 
+                    ( is-lit ?xIt ?yIt )
+                )
+                    ( not ( is-lit ?xIt ?yIt ) )
+                )
+            )
+        )
+
+        (forall (?xIt - PosX)
+            (forall (?yIt - PosY)
+                ;; Checks if this tile is adjacent to the original tile.
+                (when ( and
+                    ( or ( adj ?x ?xIt ?y ?yIt ) ( adj ?xIt ?x ?yIt ?y ) ) 
+                    ( not (is-lit ?xIt ?yIt ) )
+                )
                     ( is-lit ?xIt ?yIt )
                 )
             )
