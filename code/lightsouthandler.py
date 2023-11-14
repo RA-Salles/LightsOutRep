@@ -15,7 +15,7 @@ what it should do
 
 import sys
 import argparse
-import numpy as np
+# import numpy as np #This is a major major fuckup. Numpy is simply not allowed :>>>>>
 import os
 # this guy checks for them fucking errors. If it finds a runtime error caused by the user, IT FUCKING QUITS. Deal with it.
 K_ERRORFLAG = 0
@@ -309,7 +309,7 @@ def problemcreator():
             # remember to comment this when implemented
             print("not implemented! Write your layout in a .txt and pass it here :>")
             # as it is always square perfect, this SHOULD work. Else i WILL kms :>
-            matrixsize = int(np.sqrt(len(arguments.layout)))
+            # matrixsize = int(np.sqrt(len(arguments.layout))) #comment this because numpy not allowed :>
             for i in range(matrixsize):
                 # which SHOULD generate a very beauteefool [[DdLl],[DdLl],[DdLl],[DdLl]] on a 4-square.
                 inputs.append(
@@ -452,6 +452,11 @@ tail commentary!
     in brazilian portuguese, stomachache is called diarreia.
     To comment someone is shitting blood, you'd say goreia (gore + diarreia).
     the more you know!
+
+More tail commentary!
+    knowing that importing numpy caused a major error because 
+    the module wasn't installed in the tester machine made me 
+    puke blood. Pain! Very fun!!!!
 
 
 
