@@ -281,11 +281,19 @@ def problemcreator():
     # then the user should wanna go ahead an input the layout for himself. Very fun!
     if arguments.layout == 'NONE' and arguments.layoutfile == 'NONE':
         inp: str
+        end = False
         while (True):
-            inp = input()
-            if inp == -1 or inp == "-1":
+            try:
+                inp = input()
+
+            except EOFError as e:
+                end = True
+
+            if end:
                 break
+
             inputs.append(inp)
+
         # if all goes well, this should not make me wanna puke blood.
         matrixsize = len(inputs[0])
 
