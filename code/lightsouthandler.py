@@ -249,7 +249,7 @@ def putdomain():  # this function writes the domain to the root of execution. Th
 
     )
     """
-    with open("domain.pddl", "w") as f:  # as simple as that. ultrafun!
+    with open("/tmp/domain.pddl", "w") as f:  # as simple as that. ultrafun!
         f.write(domain)
         f.close()
 
