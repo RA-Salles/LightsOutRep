@@ -62,7 +62,7 @@ def putdomain():  # this function writes the domain to the root of execution. Th
     domain = """
     (define (domain lights-out)
 
-    (:requirements :strips :fluents :typing :conditional-effects :negative-preconditions :equality :disjunctive-preconditions)
+    (:requirements :strips :typing :conditional-effects :negative-preconditions :equality)
 
     (:types
         ;; Corresponds to the X and Y coordenates on the game's map.
