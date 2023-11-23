@@ -257,7 +257,7 @@ def putdomain():  # this function writes the domain to the root of execution. Th
 def callsolver():  # this guy SHOULD call the solver with the problem generated.
     import subprocess
     # added solverpath :>
-    solverpath = "/tmp/dir/software/planners/julia/planner.jl"
+    solverpath = "/tmp/dir/software/planners/madagascar/Mp"
     try:
         home_dir = os.path.expanduser("~")
         solverhandler = subprocess.run(
@@ -418,7 +418,7 @@ def parsesolution():
     crudesolution = []
     formatted = []
     # try:
-    with open("output.txt", "rb") as f:
+    with open("tmp/output.txt", "rb") as f:
         for line in f:
             line = str(line)
             if line.find("done") == -1:
