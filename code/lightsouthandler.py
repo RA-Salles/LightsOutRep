@@ -261,7 +261,7 @@ def callsolver():  # this guy SHOULD call the solver with the problem generated.
 
     try:
         solverhandler = subprocess.run(
-            [solverpath, "domain.pddl", "problem.pddl", "-o", "/tmp/output.txt"], stdout = subprocess.DEVNULL)
+            [solverpath, "/tmp/domain.pddl", "/tmp/problem.pddl", "-o", "/tmp/output.txt", "-P", "0", "-1"], stdout = subprocess.DEVNULL)
 
     except:
         print("solver not found")
@@ -409,7 +409,7 @@ def problemcreator():
         full = head1 + head2 + tail
         # print(full)
         # NOW WRITE SOMETHING TO WRITE THIS DOWN TO A FILE LAZY PIECE OF SHIT.
-        with open("problem.pddl", "w") as f:  # as simple as that. ultrafun!
+        with open("/tmp/problem.pddl", "w") as f:  # as simple as that. ultrafun!
             f.write(full)
             f.close()
 
