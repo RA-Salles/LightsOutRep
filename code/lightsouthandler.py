@@ -258,10 +258,10 @@ def callsolver():  # this guy SHOULD call the solver with the problem generated.
     import subprocess
     # added solverpath :>
     solverpath = "/tmp/dir/software/planners/madagascar/Mp"
+
     try:
-        home_dir = os.path.expanduser("~")
         solverhandler = subprocess.run(
-            [solverpath, "domain.pddl", "problem.pddl", "-o", format(f"{home_dir}/output.txt")])
+            [solverpath, "domain.pddl", "problem.pddl", "-o", "/tmp/output.txt"], stdout = subprocess.DEVNULL)
 
     except:
         print("solver not found")
@@ -418,7 +418,7 @@ def parsesolution():
     crudesolution = []
     formatted = []
     # try:
-    with open("tmp/output.txt", "rb") as f:
+    with open("/tmp/output.txt", "rb") as f:
         for line in f:
             line = str(line)
             if line.find("done") == -1:
