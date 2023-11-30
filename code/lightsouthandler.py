@@ -261,7 +261,7 @@ def callsolver():  # this guy SHOULD call the solver with the problem generated.
 
     try:
         solverhandler = subprocess.run(
-            [solverpath, "/tmp/domain.pddl", "/tmp/problem.pddl", "-o", "/tmp/output.txt", "-P", "0", "-1"], stdout = subprocess.DEVNULL)
+            [solverpath, "/tmp/domain.pddl", "/tmp/problem.pddl", "-o", "/tmp/output.txt", "-P", "0", "-1"], stdout=subprocess.DEVNULL)
 
     except:
         print("solver not found")
